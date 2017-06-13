@@ -6,7 +6,7 @@
 [![Monthly installs][ico-downloads-monthly]][link-downloads]
 [![Build status][ico-travis]][link-travis]
 
-Plugin for [Predis](https://github.com/nrk/predis) to compress stored values transparently.
+Plugin for [Predis](https://github.com/nrk/predis) to compress/decompress stored values transparently.
 
 Currently supported commands:
 - SET
@@ -28,7 +28,7 @@ use Predis\Configuration\OptionsInterface;
 use Predis\Profile\Factory;
 use Predis\Profile\RedisProfile;
 
-$compressor = new GzipCompressor(2048); // strings with length > 2048 bytes would be compressed
+$compressor = new GzipCompressor(2048); // strings with length > 2048 bytes will be compressed
 $client = new Client([], [
     'profile' => function (OptionsInterface $options) use ($compressor) {
         $profile = Factory::getDefault();
@@ -46,7 +46,7 @@ $client = new Client([], [
 ```
 
 Compressed values are stored as is.
-Default `GzipCompressor` uses [`gzencode`](http://php.net/gzencode) php function to compress value with default parameters.
+Default `GzipCompressor` uses [`gzencode`](http://php.net/gzencode) php function to compress value with default parameters and [`gzdecode`](http://php.net/gzdecode) to decompress.
 You can create your own compressor by implementing `CompressorInterface`.
 
 Roadmap:
