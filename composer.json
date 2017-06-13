@@ -17,12 +17,12 @@
   },
   "autoload": {
     "psr-4": {
-      "B1rdex\\PredisCompressible": "src/"
+      "B1rdex\\PredisCompressible\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "B1rdex\\PredisCompressible\\Tests": "tests/"
+      "B1rdex\\PredisCompressible\\Tests\\": "tests/"
     }
   }
 }
