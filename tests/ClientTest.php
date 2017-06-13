@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace Sp\Tests\PredisCompress;
 
+use B1rdex\PredisCompressible\CompressProcessor;
+use B1rdex\PredisCompressible\GzipCompressor;
+use B1rdex\PredisCompressible\StringGetCommand;
+use B1rdex\PredisCompressible\StringSetCommand;
 use PHPUnit\Framework\TestCase;
 use Predis\Client;
 use Predis\Client as OriginalClient;
 use Predis\Configuration\Options;
 use Predis\Profile\Factory;
 use Predis\Profile\RedisProfile;
-use B1rdex\PredisCompressible\CompressProcessor;
-use B1rdex\PredisCompressible\GzipCompressor;
-use B1rdex\PredisCompressible\StringGetCommand;
-use B1rdex\PredisCompressible\StringSetCommand;
 
-/**
- * @covers \B1rdex\PredisCompressible\Client
- */
 class ClientTest extends TestCase
 {
     /**
@@ -25,7 +22,9 @@ class ClientTest extends TestCase
      */
     public function it_should_work()
     {
-        $compressor = new GzipCompressor(5);
+        $threshold = 5; // length >5 is required to turn on compression
+        $compressor = new GzipCompressor($threshold);
+
         $sut = new Client([], [
             'profile' => function (Options $options) use ($compressor) {
                 $profile = Factory::getDefault();
