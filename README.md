@@ -1,6 +1,10 @@
 # Predis Compressible
 
-[![Build Status](https://travis-ci.org/b1rdex/predis-compressible.svg?branch=master)](https://travis-ci.org/b1rdex/predis-compressible)
+[![Software license][ico-license]](LICENSE)
+[![Latest stable][ico-version-stable]][link-packagist]
+[![Latest development][ico-version-dev]][link-packagist]
+[![Monthly installs][ico-downloads-monthly]][link-downloads]
+[![Build status][ico-travis]][link-travis]
 
 Plugin for [Predis](https://github.com/nrk/predis) to compress values.
 
@@ -35,3 +39,13 @@ $client = new Client([], [
     },
 ]);
 ```
+
+[ico-license]: https://img.shields.io/github/license/b1rdex/predis-compressible.svg?style=flat-square
+[ico-version-stable]: https://img.shields.io/packagist/v/b1rdex/predis-compressible.svg?style=flat-square
+[ico-version-dev]: https://img.shields.io/packagist/vpre/b1rdex/predis-compressible.svg?style=flat-square
+[ico-downloads-monthly]: https://img.shields.io/packagist/dm/b1rdex/predis-compressible.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/b1rdex/predis-compressible.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/b1rdex/predis-compressible
+[link-travis]: https://travis-ci.org/b1rdex/predis-compressible
+[link-downloads]: https://packagist.org/packages/b1rdex/predis-compressible/stats
