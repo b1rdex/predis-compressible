@@ -6,11 +6,16 @@
 [![Monthly installs][ico-downloads-monthly]][link-downloads]
 [![Build status][ico-travis]][link-travis]
 
-Plugin for [Predis](https://github.com/nrk/predis) to compress values.
+Plugin for [Predis](https://github.com/nrk/predis) to compress stored values transparently.
 
 Currently supported commands:
 - SET
 - GET
+
+Installation:
+```
+composer require b1rdex/predis-compressible
+```
 
 Example usage:
 ```php
@@ -23,7 +28,7 @@ use Predis\Configuration\OptionsInterface;
 use Predis\Profile\Factory;
 use Predis\Profile\RedisProfile;
 
-$compressor = new GzipCompressor(2048); // strins with length >2048 would be compressed
+$compressor = new GzipCompressor(2048); // strings with length > 2048 bytes would be compressed
 $client = new Client([], [
     'profile' => function (OptionsInterface $options) use ($compressor) {
         $profile = Factory::getDefault();
@@ -39,6 +44,14 @@ $client = new Client([], [
     },
 ]);
 ```
+
+Compressed values are stored as is.
+Default `GzipCompressor` uses [`gzencode`](http://php.net/gzencode) php function to compress value with default parameters.
+You can create your own compressor by implementing `CompressorInterface`.
+
+Roadmap:
+- Add more commands (`MSET`, `HSET`, `SETEX`, `SETNX` and their get counterparts at least)
+- Make initialization simplier
 
 [ico-license]: https://img.shields.io/github/license/b1rdex/predis-compressible.svg?style=flat-square
 [ico-version-stable]: https://img.shields.io/packagist/v/b1rdex/predis-compressible.svg?style=flat-square
