@@ -8,11 +8,21 @@ interface CompressorInterface
 {
     public function __construct(int $threshold);
 
-    public function shouldCompress(string $data): bool;
+    public function shouldCompress(string $data = null): bool;
 
-    public function compress(string $data): string;
+    /**
+     * @param string|null $data
+     *
+     * @return string|null
+     */
+    public function compress(string $data = null);
 
-    public function isCompressed(string $data): bool;
+    public function isCompressed(string $data = null): bool;
 
-    public function decompress(string $data): string;
+    /**
+     * @param string|null $data
+     *
+     * @return string|null
+     */
+    public function decompress(string $data = null);
 }

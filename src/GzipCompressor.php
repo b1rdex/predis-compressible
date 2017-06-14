@@ -13,10 +13,10 @@ class GzipCompressor implements CompressorInterface
         $this->threshold = $threshold;
     }
 
-    public function compress(string $data): string
+    public function compress(string $data = null)
     {
         if (!$this->shouldCompress($data)) {
-            return (string)$data;
+            return $data;
         }
 
         $compressed = @\gzencode($data);
@@ -27,18 +27,26 @@ class GzipCompressor implements CompressorInterface
         return $compressed;
     }
 
-    public function shouldCompress(string $data): bool
+    public function shouldCompress(string $data = null): bool
     {
+        if ($data === null) {
+            return false;
+        }
+
         return \strlen($data) > $this->threshold;
     }
 
-    public function isCompressed(string $data): bool
+    public function isCompressed(string $data = null): bool
     {
         return 0 === mb_strpos($data, "\x1f" . "\x8b" . "\x08", 0, 'US-ASCII');
     }
 
-    public function decompress(string $data): string
+    public function decompress(string $data = null)
     {
+        if ($data === null) {
+            return null;
+        }
+
         $decompressed = @\gzdecode($data);
         if ($decompressed === false) {
             throw new CompressorException('Decompression failed');

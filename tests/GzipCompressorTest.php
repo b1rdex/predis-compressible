@@ -33,4 +33,19 @@ class GzipCompressorTest extends TestCase
         $this->expectException(CompressorException::class);
         $sut->decompress('');
     }
+
+    /**
+     * @test
+     */
+    public function it_should_accept_nulls()
+    {
+        $sut = new GzipCompressor(5);
+
+        $data = null;
+        $compressed = $sut->compress($data);
+        $this->assertNull($compressed);
+
+        $decompressed = $sut->decompress($compressed);
+        $this->assertNull($decompressed);
+    }
 }
