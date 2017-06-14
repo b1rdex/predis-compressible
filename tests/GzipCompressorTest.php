@@ -44,6 +44,7 @@ class GzipCompressorTest extends TestCase
         $data = null;
         $compressed = $sut->compress($data);
         $this->assertNull($compressed);
+        $this->assertFalse($sut->isCompressed($compressed));
 
         $decompressed = $sut->decompress($compressed);
         $this->assertNull($decompressed);

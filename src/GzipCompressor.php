@@ -38,6 +38,10 @@ class GzipCompressor implements CompressorInterface
 
     public function isCompressed(string $data = null): bool
     {
+        if ($data === null) {
+            return false;
+        }
+
         return 0 === mb_strpos($data, "\x1f" . "\x8b" . "\x08", 0, 'US-ASCII');
     }
 
