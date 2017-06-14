@@ -6,25 +6,23 @@ namespace B1rdex\PredisCompressible\Command;
 
 use B1rdex\PredisCompressible\CompressorException;
 
-trait CompressSecondArgumentTrait
+trait CompressArgumentsHelperTrait
 {
     /**
      * @var \B1rdex\PredisCompressible\CompressorInterface
      */
     protected $compressor;
 
-    public function compressArguments(array $arguments): array
+    protected function compressArgument(array &$arguments, int $position)
     {
-        $content = $arguments[1];
+        $content = $arguments[$position];
 
         try {
             $compressed = $this->compressor->compress($content);
         } catch (CompressorException $exception) {
-            return $arguments;
+            return;
         }
 
-        $arguments[1] = $compressed;
-
-        return $arguments;
+        $arguments[$position] = $compressed;
     }
 }

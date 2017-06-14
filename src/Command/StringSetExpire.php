@@ -9,5 +9,12 @@ use Predis\Command\StringSetExpire as BaseStringSetExpire;
 class StringSetExpire extends BaseStringSetExpire implements ArgumentsCompressibleCommandInterface
 {
     use CompressibleCommandTrait;
-    use CompressSecondArgumentTrait;
+    use CompressArgumentsHelperTrait;
+
+    public function compressArguments(array $arguments): array
+    {
+        $this->compressArgument($arguments, 2);
+
+        return $arguments;
+    }
 }
