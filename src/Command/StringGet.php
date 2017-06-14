@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace B1rdex\PredisCompressible;
+namespace B1rdex\PredisCompressible\Command;
 
-use Predis\Command\StringGet;
+use Predis\Command\StringGet as BaseStringGet;
 
-class StringGetCommand extends StringGet implements CompressibleCommandInterface
+class StringGet extends BaseStringGet implements CompressibleCommandInterface
 {
     use CompressibleCommandTrait;
 

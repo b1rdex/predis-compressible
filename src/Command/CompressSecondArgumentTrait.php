@@ -2,13 +2,16 @@
 
 declare(strict_types=1);
 
-namespace B1rdex\PredisCompressible;
+namespace B1rdex\PredisCompressible\Command;
 
-use Predis\Command\StringSet;
+use B1rdex\PredisCompressible\CompressorException;
 
-class StringSetCommand extends StringSet implements ArgumentsCompressibleCommandInterface
+trait CompressSecondArgumentTrait
 {
-    use CompressibleCommandTrait;
+    /**
+     * @var \B1rdex\PredisCompressible\CompressorInterface
+     */
+    protected $compressor;
 
     public function compressArguments(array $arguments): array
     {

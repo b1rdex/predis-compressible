@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace B1rdex\PredisCompressible;
+namespace B1rdex\PredisCompressible\Command;
 
 interface ArgumentsCompressibleCommandInterface extends CompressibleCommandInterface
 {

@@ -21,8 +21,10 @@ Example usage:
 ```php
 use B1rdex\PredisCompressible\CompressProcessor;
 use B1rdex\PredisCompressible\GzipCompressor;
-use B1rdex\PredisCompressible\StringGetCommand;
-use B1rdex\PredisCompressible\StringSetCommand;
+use B1rdex\PredisCompressible\Command\StringGet;
+use B1rdex\PredisCompressible\Command\StringSet;
+use B1rdex\PredisCompressible\Command\StringSetExpire;
+use B1rdex\PredisCompressible\Command\StringSetPreserve;
 use Predis\Client;
 use Predis\Configuration\OptionsInterface;
 use Predis\Profile\Factory;
@@ -36,8 +38,10 @@ $client = new Client([], [
             $processor = new CompressProcessor($compressor);
             $profile->setProcessor($processor);
 
-            $profile->defineCommand('SET', StringSetCommand::class);
-            $profile->defineCommand('GET', StringGetCommand::class);
+            $profile->defineCommand('SET', StringSet::class);
+            $profile->defineCommand('SETEX', StringSetExpire::class);
+            $profile->defineCommand('SETNX', StringSetPreserve::class);
+            $profile->defineCommand('GET', StringGet::class);
         }
 
         return $profile;
@@ -50,7 +54,7 @@ Default `GzipCompressor` uses [`gzencode`](http://php.net/gzencode) php function
 You can create your own compressor by implementing `CompressorInterface`.
 
 Roadmap:
-- Add more commands (`MSET`, `HSET`, `SETEX`, `SETNX` and their get counterparts at least)
+- Add more commands (`MSET`, `HSET` and their get counterparts at least)
 - Make initialization simplier
 
 [ico-license]: https://img.shields.io/github/license/b1rdex/predis-compressible.svg?style=flat-square

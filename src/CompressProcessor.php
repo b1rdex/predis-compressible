@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace B1rdex\PredisCompressible;
 
+use B1rdex\PredisCompressible\Command\ArgumentsCompressibleCommandInterface;
+use B1rdex\PredisCompressible\Command\CompressibleCommandInterface;
 use Predis\Command\CommandInterface;
 use Predis\Command\Processor\ProcessorInterface;
 
