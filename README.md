@@ -19,6 +19,8 @@ composer require b1rdex/predis-compressible
 
 Example usage:
 ```php
+<?php
+
 use B1rdex\PredisCompressible\CompressProcessor;
 use B1rdex\PredisCompressible\GzipCompressor;
 use B1rdex\PredisCompressible\Command\StringGet;
