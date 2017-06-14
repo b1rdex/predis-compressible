@@ -10,6 +10,8 @@ Plugin for [Predis](https://github.com/nrk/predis) to compress/decompress stored
 
 Currently supported commands:
 - SET
+- SETEX
+- SETNX
 - GET
 
 Installation:
