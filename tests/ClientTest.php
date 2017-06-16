@@ -140,6 +140,6 @@ class ClientTest extends TestCase
         $sut->set($key, false);
         $sut->set($key, null);
 
-        $this->assertNull($sut->get($key));
+        $this->assertTrue($sut->exists($key));
     }
 }
