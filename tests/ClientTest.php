@@ -8,8 +8,8 @@ use B1rdex\PredisCompressible\Command\StringGet;
 use B1rdex\PredisCompressible\Command\StringSet;
 use B1rdex\PredisCompressible\Command\StringSetExpire;
 use B1rdex\PredisCompressible\Command\StringSetPreserve;
+use B1rdex\PredisCompressible\Compressor\GzipCompressor;
 use B1rdex\PredisCompressible\CompressProcessor;
-use B1rdex\PredisCompressible\GzipCompressor;
 use PHPUnit\Framework\TestCase;
 use Predis\Client;
 use Predis\Client as OriginalClient;
@@ -126,5 +126,20 @@ class ClientTest extends TestCase
 
         $this->assertSame($value, $sut->get($key));
         $this->assertNotSame($value, $this->getOriginalClient()->get($key));
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_not_throw_on_any_scalar_types()
+    {
+        $sut = $this->getCompressedClient();
+
+        $key = '1';
+        $sut->set($key, 1);
+        $sut->set($key, false);
+        $sut->set($key, null);
+
+        $this->assertNull($sut->get($key));
     }
 }

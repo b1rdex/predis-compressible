@@ -6,6 +6,7 @@ namespace B1rdex\PredisCompressible;
 
 use B1rdex\PredisCompressible\Command\ArgumentsCompressibleCommandInterface;
 use B1rdex\PredisCompressible\Command\CompressibleCommandInterface;
+use B1rdex\PredisCompressible\Compressor\CompressorInterface;
 use Predis\Command\CommandInterface;
 use Predis\Command\Processor\ProcessorInterface;
 
