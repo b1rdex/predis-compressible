@@ -11,10 +11,8 @@ class StringSetExpire extends BaseStringSetExpire implements CompressibleCommand
     use CompressibleCommandTrait;
     use CompressArgumentsHelperTrait;
 
-    public function filterArguments(array $arguments): array
+    protected function filterArguments(array $arguments): array
     {
-        $this->compressArgument($arguments, 2);
-
-        return $arguments;
+        return $this->compressArgument($arguments, 2);
     }
 }

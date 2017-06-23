@@ -13,20 +13,22 @@ trait CompressArgumentsHelperTrait
      */
     protected $compressor;
 
-    protected function compressArgument(array &$arguments, int $position)
+    protected function compressArgument(array $arguments, int $position): array
     {
         $content = $arguments[$position];
 
         if (!$this->compressor->shouldCompress($content)) {
-            return;
+            return $arguments;
         }
 
         try {
             $compressed = $this->compressor->compress($content);
         } catch (CompressorException $exception) {
-            return;
+            return $arguments;
         }
 
         $arguments[$position] = $compressed;
+
+        return $arguments;
     }
 }
