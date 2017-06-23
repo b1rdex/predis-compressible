@@ -11,8 +11,10 @@ class StringSetPreserve extends BaseStringSetPreserve implements CompressibleCom
     use CompressibleCommandTrait;
     use CompressArgumentsHelperTrait;
 
-    protected function filterArguments(array $arguments): array
+    public function filterArguments(array $arguments): array
     {
-        return $this->compressArgument($arguments, 1);
+        $this->compressArgument($arguments, 1);
+
+        return $arguments;
     }
 }
