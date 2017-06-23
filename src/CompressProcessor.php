@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace B1rdex\PredisCompressible;
 
+use B1rdex\PredisCompressible\Command\ArgumentsCompressibleCommandInterface;
 use B1rdex\PredisCompressible\Command\CompressibleCommandInterface;
 use B1rdex\PredisCompressible\Compressor\CompressorInterface;
 use Predis\Command\CommandInterface;
@@ -22,6 +23,11 @@ class CompressProcessor implements ProcessorInterface
     {
         if ($command instanceof CompressibleCommandInterface) {
             $command->setCompressor($this->compressor);
+
+            if ($command instanceof ArgumentsCompressibleCommandInterface) {
+                $arguments = $command->compressArguments($command->getArguments());
+                $command->setRawArguments($arguments);
+            }
         }
     }
 }
