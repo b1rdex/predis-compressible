@@ -6,12 +6,12 @@ namespace B1rdex\PredisCompressible\Command;
 
 use Predis\Command\StringSetExpire as BaseStringSetExpire;
 
-class StringSetExpire extends BaseStringSetExpire implements ArgumentsCompressibleCommandInterface
+class StringSetExpire extends BaseStringSetExpire implements CompressibleCommandInterface
 {
     use CompressibleCommandTrait;
     use CompressArgumentsHelperTrait;
 
-    public function compressArguments(array $arguments): array
+    public function filterArguments(array $arguments): array
     {
         $this->compressArgument($arguments, 2);
 
