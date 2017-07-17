@@ -23,7 +23,7 @@ Example usage:
 <?php
 
 use B1rdex\PredisCompressible\CompressProcessor;
-use B1rdex\PredisCompressible\GzipCompressor;
+use B1rdex\PredisCompressible\Compressor\GzipCompressor;
 use B1rdex\PredisCompressible\Command\StringGet;
 use B1rdex\PredisCompressible\Command\StringSet;
 use B1rdex\PredisCompressible\Command\StringSetExpire;
@@ -33,7 +33,9 @@ use Predis\Configuration\OptionsInterface;
 use Predis\Profile\Factory;
 use Predis\Profile\RedisProfile;
 
-$compressor = new GzipCompressor(2048); // strings with length > 2048 bytes will be compressed
+// strings with length > 2048 bytes will be compressed
+$compressor = new GzipCompressor(2048);
+
 $client = new Client([], [
     'profile' => function (OptionsInterface $options) use ($compressor) {
         $profile = Factory::getDefault();
