@@ -8,6 +8,7 @@ use B1rdex\PredisCompressible\Command\StringGet;
 use B1rdex\PredisCompressible\Command\StringSet;
 use B1rdex\PredisCompressible\Command\StringSetExpire;
 use B1rdex\PredisCompressible\Command\StringSetPreserve;
+use B1rdex\PredisCompressible\Compressor\ConditionalCompressorWrapper;
 use B1rdex\PredisCompressible\Compressor\GzipCompressor;
 use B1rdex\PredisCompressible\CompressProcessor;
 use PHPUnit\Framework\TestCase;
@@ -50,7 +51,7 @@ class ClientTest extends TestCase
         }
 
         $threshold = 5; // length >5 is required to turn on compression
-        $compressor = new GzipCompressor($threshold);
+        $compressor = new ConditionalCompressorWrapper($threshold, new GzipCompressor());
 
         $sut = new Client($this->getConnectionParameters(), [
             'profile' => function (Options $options) use ($compressor) {

@@ -7,37 +7,18 @@ namespace B1rdex\PredisCompressible\Compressor;
 interface CompressorInterface
 {
     /**
-     * @param int $threshold Minimal string size in bytes to allow compression
-     */
-    public function __construct(int $threshold);
-
-    /**
-     * Checks if $data is allowed to be compressed.
-     *
-     * It should check $data type — only strings can be compressed
-     * It should check $data bytes length — only exceeded $threshold should be compressed
+     * Returns compressed string or original string if its size is less than threshold
      *
      * @param mixed $data
      *
-     * @return bool
+     * @return string|mixed Gzip string or original data
      */
-    public function shouldCompress($data): bool;
-
-    /**
-     * Returns compressed string or original string if its size is less than threshold
-     *
-     * @param string $data
-     *
-     * @return string Gzip string or original data
-     *
-     * @throws \B1rdex\PredisCompressible\Compressor\CompressorException
-     */
-    public function compress(string $data): string;
+    public function compress($data);
 
     /**
      * Checks if $data is gzipped string
      *
-     * @param mixed|null $data
+     * @param mixed $data
      *
      * @return bool
      */

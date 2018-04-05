@@ -34,7 +34,7 @@ use Predis\Profile\Factory;
 use Predis\Profile\RedisProfile;
 
 // strings with length > 2048 bytes will be compressed
-$compressor = new GzipCompressor(2048);
+$compressor = new ConditionalCompressorWrapper(2048, new GzipCompressor());
 
 $client = new Client([], [
     'profile' => function (OptionsInterface $options) use ($compressor) {
