@@ -17,10 +17,6 @@ trait CompressArgumentsHelperTrait
     {
         $content = $arguments[$position];
 
-        if (!$this->compressor->shouldCompress($content)) {
-            return;
-        }
-
         try {
             $compressed = $this->compressor->compress($content);
         } catch (CompressorException $exception) {

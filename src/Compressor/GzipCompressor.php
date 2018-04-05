@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace B1rdex\PredisCompressible\Compressor;
 
-class GzipCompressor extends AbstractCompressor
+use RuntimeException;
+
+class GzipCompressor implements CompressorInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function compress(string $data): string
+    public function compress($data)
     {
         $compressed = @\gzencode($data);
         if ($compressed === false) {
-            throw new CompressorException('Compression failed');
+            throw new class('Compression failed') extends RuntimeException implements CompressorException {};
         }
 
         return $compressed;
@@ -28,7 +30,7 @@ class GzipCompressor extends AbstractCompressor
             return false;
         }
 
-        return 0 === \mb_strpos($data, "\x1f" . "\x8b" . "\x08", 0, self::BYTE_CHARSET);
+        return 0 === \mb_strpos($data, "\x1f" . "\x8b" . "\x08", 0, 'US-ASCII');
     }
 
     /**
@@ -38,7 +40,7 @@ class GzipCompressor extends AbstractCompressor
     {
         $decompressed = @\gzdecode($data);
         if ($decompressed === false) {
-            throw new CompressorException('Decompression failed');
+            throw new class('Decompression failed') extends RuntimeException implements CompressorException {};
         }
 
         return $decompressed;
