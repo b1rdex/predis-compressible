@@ -167,6 +167,7 @@ class ClientTest extends TestCase
         self::assertSame([$value1], $sut->mget([$key1]));
         self::assertNotSame([$value1, $value2, $value3], $this->getOriginalClient()->mget([$key1, $key2, $key3]));
 
-        self::assertEmpty($sut->mget(['not', 'existent']));
+        $shouldBeEmpty = $sut->mget(['not', 'existent']);
+        self::assertEmpty($shouldBeEmpty, print_r($shouldBeEmpty, true));
     }
 }
