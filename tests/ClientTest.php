@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Sp\Tests\PredisCompress;
 
 use B1rdex\PredisCompressible\Command\StringGet;
+use B1rdex\PredisCompressible\Command\StringGetMultiple;
 use B1rdex\PredisCompressible\Command\StringSet;
 use B1rdex\PredisCompressible\Command\StringSetExpire;
 use B1rdex\PredisCompressible\Command\StringSetPreserve;
@@ -64,6 +65,7 @@ class ClientTest extends TestCase
                     $profile->defineCommand('SETEX', StringSetExpire::class);
                     $profile->defineCommand('SETNX', StringSetPreserve::class);
                     $profile->defineCommand('GET', StringGet::class);
+                    $profile->defineCommand('MGET', StringGetMultiple::class);
                 }
 
                 return $profile;
@@ -142,5 +144,29 @@ class ClientTest extends TestCase
         $sut->set($key, null);
 
         $this->assertEquals(1, $sut->exists($key));
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_allow_mget()
+    {
+        $sut = $this->getCompressedClient();
+
+        $key1 = 'test1';
+        $key2 = 'test2';
+        $key3 = 'test3';
+        $value1 = 'value compressed1';
+        $value2 = 'value compressed2';
+        $value3 = 'value compressed3';
+        $sut->set($key1, $value1);
+        $sut->set($key2, $value2);
+        $sut->set($key3, $value3);
+
+        self::assertSame([$value1, $value2, $value3], $sut->mget([$key1, $key2, $key3]));
+        self::assertSame([$value1], $sut->mget([$key1]));
+        self::assertNotSame([$value1, $value2, $value3], $this->getOriginalClient()->mget([$key1, $key2, $key3]));
+
+        self::assertSame([null, null], $sut->mget(['not', 'existent']));
     }
 }
