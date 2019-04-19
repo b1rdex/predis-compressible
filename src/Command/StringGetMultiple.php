@@ -21,7 +21,7 @@ class StringGetMultiple extends BaseStringGetMultiple implements CompressibleCom
         return $this->decompress($data);
     }
 
-    private function decompress(?string $data) 
+    private function decompress(string $data = null)
     {
         if (!$this->compressor->isCompressed($data)) {
             return $data;
