@@ -169,4 +169,21 @@ class ClientTest extends TestCase
 
         self::assertSame([null, null], $sut->mget(['not', 'existent']));
     }
+
+    /**
+     * @test
+     */
+    public function it_should_allow_mset()
+    {
+        $sut = $this->getCompressedClient();
+
+        $key1 = 'test1';
+        $key2 = 'test2';
+        $key3 = 'test3';
+        $value1 = 'value compressed1';
+        $value2 = 'value compressed2';
+        $value3 = 'value compressed3';
+        $sut->mset([$key1, $value1, $key2, $value2, $key3, $value3]);
+        self::assertSame([$value1, $value2, $value3], $sut->mget([$key1, $key2, $key3]));
+    }
 }
