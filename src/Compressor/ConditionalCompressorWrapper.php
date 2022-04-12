@@ -39,7 +39,7 @@ class ConditionalCompressorWrapper implements CompressorInterface
             return false;
         }
 
-        return \mb_strlen($data, 'US-ASCII') > $this->bytesThreshold;
+        return \strlen($data) > $this->bytesThreshold;
     }
 
     /**
