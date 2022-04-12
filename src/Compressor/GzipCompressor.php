@@ -30,7 +30,7 @@ class GzipCompressor implements CompressorInterface
             return false;
         }
 
-        return 0 === \mb_strpos($data, "\x1f" . "\x8b" . "\x08", 0, 'US-ASCII');
+        return str_starts_with($data, "\x1f" . "\x8b" . "\x08");
     }
 
     /**
