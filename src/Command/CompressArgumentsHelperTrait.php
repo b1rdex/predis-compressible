@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace B1rdex\PredisCompressible\Command;
 
 use B1rdex\PredisCompressible\Compressor\CompressorException;
+use B1rdex\PredisCompressible\Compressor\CompressorInterface;
 
 trait CompressArgumentsHelperTrait
 {
-    /**
-     * @var \B1rdex\PredisCompressible\Compressor\CompressorInterface
-     */
-    protected $compressor;
+    protected CompressorInterface $compressor;
 
-    protected function compressArgument(array &$arguments, int $position)
+	/**
+	 * @param list<mixed> $arguments
+	 */
+    protected function compressArgument(array &$arguments, int $position): void
     {
         $content = $arguments[$position];
 

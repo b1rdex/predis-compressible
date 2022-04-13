@@ -12,14 +12,11 @@ use Predis\Command\Processor\ProcessorInterface;
 
 class CompressProcessor implements ProcessorInterface
 {
-    private $compressor;
-
-    public function __construct(CompressorInterface $compressor)
+    public function __construct(private CompressorInterface $compressor)
     {
-        $this->compressor = $compressor;
     }
 
-    public function process(CommandInterface $command)
+    public function process(CommandInterface $command): void
     {
         if ($command instanceof CompressibleCommandInterface) {
             $command->setCompressor($this->compressor);

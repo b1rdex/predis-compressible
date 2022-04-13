@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sp\Tests\PredisCompress;
+namespace B1rdex\PredisCompressible\Tests;
 
 use B1rdex\PredisCompressible\Command\StringGet;
 use B1rdex\PredisCompressible\Command\StringGetMultiple;
@@ -24,7 +24,7 @@ class ClientTest extends TestCase
     /**
      * @test
      */
-    public function it_should_work()
+    public function it_should_work(): void
     {
         $sut = $this->getCompressedClient();
 
@@ -74,9 +74,16 @@ class ClientTest extends TestCase
         $sut->connect();
         $this->assertTrue($sut->isConnected());
 
+		// clear redis db before running the tests
+		$sut->flushdb();
+
         return $sut;
     }
 
+	/**
+	 * @see \Predis\Client::createConnection()
+	 * @return array<mixed>
+	 */
     private function getConnectionParameters(): array
     {
         return [];
@@ -90,7 +97,7 @@ class ClientTest extends TestCase
     /**
      * @test
      */
-    public function it_should_allow_setex()
+    public function it_should_allow_setex(): void
     {
         $sut = $this->getCompressedClient();
 
@@ -112,7 +119,7 @@ class ClientTest extends TestCase
     /**
      * @test
      */
-    public function it_should_allow_setnx()
+    public function it_should_allow_setnx(): void
     {
         $sut = $this->getCompressedClient();
 
@@ -134,7 +141,7 @@ class ClientTest extends TestCase
     /**
      * @test
      */
-    public function it_should_not_throw_on_any_scalar_types()
+    public function it_should_not_throw_on_any_scalar_types(): void
     {
         $sut = $this->getCompressedClient();
 
@@ -149,7 +156,7 @@ class ClientTest extends TestCase
     /**
      * @test
      */
-    public function it_should_allow_mget()
+    public function it_should_allow_mget(): void
     {
         $sut = $this->getCompressedClient();
 
@@ -173,7 +180,7 @@ class ClientTest extends TestCase
     /**
      * @test
      */
-    public function it_should_allow_mset()
+    public function it_should_allow_mset(): void
     {
         $sut = $this->getCompressedClient();
 
