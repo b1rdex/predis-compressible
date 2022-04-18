@@ -8,12 +8,9 @@ use B1rdex\PredisCompressible\Compressor\CompressorInterface;
 
 trait CompressibleCommandTrait
 {
-    /**
-     * @var \B1rdex\PredisCompressible\Compressor\CompressorInterface
-     */
-    protected $compressor;
+    protected CompressorInterface $compressor;
 
-    public function setCompressor(CompressorInterface $compressor)
+    public function setCompressor(CompressorInterface $compressor): void
     {
         $this->compressor = $compressor;
     }

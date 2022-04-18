@@ -10,23 +10,25 @@ class StringGetMultiple extends BaseStringGetMultiple implements CompressibleCom
 {
     use CompressibleCommandTrait;
 
+	/**
+	 * @param list<string>|string $data
+	 */
     public function parseResponse($data)
     {
         if (is_array($data)) {
-            return array_map(function($item) {
-                return $this->decompress($item);
-            }, $data);
+            return array_map(fn($item) => $this->decompress($item), $data);
         }
 
         return $this->decompress($data);
     }
 
-    private function decompress(string $data = null)
-    {
+    private function decompress(?string $data): ?string
+	{
         if (!$this->compressor->isCompressed($data)) {
             return $data;
         }
 
+		/** @var string $data */
         return $this->compressor->decompress($data);
     }
 }

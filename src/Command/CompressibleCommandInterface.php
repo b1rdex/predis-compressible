@@ -8,5 +8,5 @@ use B1rdex\PredisCompressible\Compressor\CompressorInterface;
 
 interface CompressibleCommandInterface
 {
-    public function setCompressor(CompressorInterface $compressor);
+    public function setCompressor(CompressorInterface $compressor): void;
 }

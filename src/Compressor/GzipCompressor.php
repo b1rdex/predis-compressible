@@ -8,12 +8,13 @@ use RuntimeException;
 
 class GzipCompressor implements CompressorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function compress($data)
-    {
-        $compressed = @\gzencode($data);
+    public function compress(mixed $data): mixed
+	{
+		if (!\is_string($data)) {
+			return $data;
+		}
+
+        $compressed = @gzencode($data);
         if ($compressed === false) {
             throw new class('Compression failed') extends RuntimeException implements CompressorException {};
         }
@@ -21,21 +22,15 @@ class GzipCompressor implements CompressorInterface
         return $compressed;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function isCompressed($data): bool
+    public function isCompressed(mixed $data): bool
     {
         if (!\is_string($data)) {
             return false;
         }
 
-        return 0 === \mb_strpos($data, "\x1f" . "\x8b" . "\x08", 0, 'US-ASCII');
+        return str_starts_with($data, "\x1f" . "\x8b" . "\x08");
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function decompress(string $data): string
     {
         $decompressed = @\gzdecode($data);
