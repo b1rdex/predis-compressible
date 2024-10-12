@@ -8,6 +8,7 @@ use B1rdex\PredisCompressible\Command\StringGet;
 use B1rdex\PredisCompressible\Command\StringGetMultiple;
 use B1rdex\PredisCompressible\Command\StringSet;
 use B1rdex\PredisCompressible\Command\StringSetExpire;
+use B1rdex\PredisCompressible\Command\StringSetMultiple;
 use B1rdex\PredisCompressible\Command\StringSetPreserve;
 use B1rdex\PredisCompressible\Compressor\ConditionalCompressorWrapper;
 use B1rdex\PredisCompressible\Compressor\GzipCompressor;
@@ -66,6 +67,7 @@ class ClientTest extends TestCase
                     $profile->defineCommand('SETNX', StringSetPreserve::class);
                     $profile->defineCommand('GET', StringGet::class);
                     $profile->defineCommand('MGET', StringGetMultiple::class);
+                    $profile->defineCommand('MSET', StringSetMultiple::class);
                 }
 
                 return $profile;
@@ -190,7 +192,8 @@ class ClientTest extends TestCase
         $value1 = 'value compressed1';
         $value2 = 'value compressed2';
         $value3 = 'value compressed3';
-        $sut->mset([$key1, $value1, $key2, $value2, $key3, $value3]);
+        $sut->mset([$key1 => $value1, $key2 => $value2, $key3 => $value3]);
         self::assertSame([$value1, $value2, $value3], $sut->mget([$key1, $key2, $key3]));
+        self::assertNotSame([$value1, $value2, $value3], $this->getOriginalClient()->mget([$key1, $key2, $key3]));
     }
 }

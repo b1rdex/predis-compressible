@@ -13,7 +13,7 @@ class StringSetMultiple extends BaseStringSetMultiple implements ArgumentsCompre
 
     public function compressArguments(array $arguments): array
     {
-        for ($i = 0, $count = \count($arguments); $i < $count; $i += 2) {
+        for ($i = 1, $count = \count($arguments); $i < $count; $i += 2) {
             $this->compressArgument($arguments, $i);
         }
 
