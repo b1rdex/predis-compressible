@@ -12,6 +12,7 @@ Currently supported commands:
 - SETEX
 - SETNX
 - GET
+- MSET
 
 Installation:
 ```
@@ -66,7 +67,7 @@ Default `GzipCompressor` uses [`gzencode`](http://php.net/gzencode) php function
 You can create your own compressor by implementing `CompressorInterface`.
 
 Roadmap:
-- Add more commands (`MSET`, `HSET` and their get counterparts at least)
+- Add more commands (`HSET` and their get counterparts at least)
 - Make initialization simpler
 
 [ico-license]: https://img.shields.io/github/license/b1rdex/predis-compressible.svg?style=flat-square
