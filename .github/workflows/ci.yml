@@ -20,17 +20,24 @@ jobs:
 
     strategy:
       matrix:
-        php-versions:
+        php-version:
           - '8.0'
           - '8.1'
           - '8.2'
           - '8.3'
+        redis-version:
+          - 3
+          - 4
+          - 5
 
     services:
       redis:
-        image: redis:3
+        image: redis:${{ matrix.redis-version }}
         options: >-
           --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
         ports:
           - 6379:6379
 
@@ -43,7 +50,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: ${{ matrix.php-version }}
           tools: composer
 
       - name: Get composer cache directory
@@ -54,7 +61,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-composer-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
