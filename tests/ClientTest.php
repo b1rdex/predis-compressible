@@ -46,12 +46,6 @@ class ClientTest extends TestCase
 
     private function getCompressedClient(): Client
     {
-        static $sut = null;
-
-        if ($sut !== null) {
-            return $sut;
-        }
-
         $threshold = 5; // length >5 is required to turn on compression
         $compressor = new ConditionalCompressorWrapper($threshold, new GzipCompressor());
 

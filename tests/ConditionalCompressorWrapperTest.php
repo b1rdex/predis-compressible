@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace B1rdex\PredisCompressible;
+namespace B1rdex\PredisCompressible\Tests;
 
 use B1rdex\PredisCompressible\Compressor\CompressorException;
 use B1rdex\PredisCompressible\Compressor\ConditionalCompressorWrapper;
