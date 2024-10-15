@@ -27,8 +27,7 @@ jobs:
           - '8.3'
         redis-version:
           - 3
-          - 4
-          - 5
+          - 7
 
     services:
       redis:
