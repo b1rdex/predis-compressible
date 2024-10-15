@@ -30,7 +30,7 @@
     }
   },
   "scripts": {
-    "test": "vendor/bin/phpunit tests/",
+    "test": ["@sca", "vendor/bin/phpunit tests/"],
     "fix-cs": "vendor/bin/php-cs-fixer fix --rules=@PSR12:risky,@PHP80Migration:risky,@PHPUnit84Migration:risky --allow-risky=yes .",
     "sca": "vendor/bin/phpstan --memory-limit=-1 analyse --level=max src/ tests/"
   }
